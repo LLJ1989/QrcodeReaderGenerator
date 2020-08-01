@@ -19,8 +19,6 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
     setButtonsDesign()
   }
-  @IBAction func didTapAddBTN(_ sender: Any) {
-  }
 }
 
 // MARK: - This extension manage // NAVIGATION \\
@@ -29,6 +27,10 @@ extension HomeViewController {
   // MARK: - Action
   @IBAction func didTapSearchBTN(_ sender: CustomUIButton) {
     performSegue(withIdentifier: "segueFromHVCtoRVC", sender: self)
+  }
+
+  @IBAction func didTapAddBTN(_ sender: CustomUIButton) {
+    performSegue(withIdentifier: "segueFromHVCtoMVC", sender: self)
   }
 }
 
