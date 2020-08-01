@@ -32,6 +32,14 @@ class ReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
       captureSession.stopRunning()
     }
   }
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "segueFromRVCtoRRVC",
+       let vcToShow = segue.destination as? ReaderResultViewController,
+       let result = sender as? [String] {
+        vcToShow.result = result
+    }
+  }
 }
 
 // MARK: - This eextention manage // CAPTURE QR CODE \\
@@ -94,6 +102,6 @@ extension ReaderViewController {
 
   /// This method manage using data in qr-code
   private func found(code: String) {
-    print(code)
+    performSegue(withIdentifier: "segueFromRVCtoRRVC", sender: [code])
   }
 }
