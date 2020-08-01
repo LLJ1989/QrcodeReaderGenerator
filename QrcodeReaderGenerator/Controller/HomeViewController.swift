@@ -17,19 +17,19 @@ class HomeViewController: UIViewController {
   // MARK: - Methods
   override func viewDidLoad() {
     super.viewDidLoad()
+    setButtonsDesign()
   }
   @IBAction func didTapAddBTN(_ sender: Any) {
   }
 }
 
-// MARK: - This extension manage // SEARCH QR-CODE \\
+// MARK: - This extension manage // NAVIGATION \\
 extension HomeViewController {
 
   // MARK: - Action
   @IBAction func didTapSearchBTN(_ sender: CustomUIButton) {
+    performSegue(withIdentifier: "segueFromHVCtoRVC", sender: self)
   }
-
-  // MARK: - Methods
 }
 
 // MARK: - This extension manage // APPEARANCE \\

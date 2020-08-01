@@ -10,3 +10,4 @@ line_length:
 # Disabling rules
 disabled_rules:
   - unused_optional_binding
+  - force_cast
