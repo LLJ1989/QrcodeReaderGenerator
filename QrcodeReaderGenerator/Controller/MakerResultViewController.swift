@@ -15,10 +15,17 @@ class MakerResultViewController: UIViewController {
 
   // MARK: - Outlets
   @IBOutlet weak var qrcodeIV: UIImageView!
+  @IBOutlet weak var dismissBTN: CustomUIButton!
 
   // MARK: - Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     qrcodeIV.image = image.first
+    dismissBTN.setBackBTN()
+  }
+
+  // MARK: - Action
+  @IBAction func didTapDismissBTN(_ sender: CustomUIButton) {
+    dismiss(animated: true)
   }
 }

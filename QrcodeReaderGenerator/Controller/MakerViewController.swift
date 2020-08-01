@@ -10,16 +10,21 @@ import UIKit
 
 class MakerViewController: UIViewController {
 
+  // MARK: - Properties
+  let alertController = AlertController()
+
   // MARK: - Outlets
   @IBOutlet weak var nameTF: UITextField!
   @IBOutlet weak var firstNameTF: UITextField!
   @IBOutlet weak var mailTF: UITextField!
   @IBOutlet weak var creatBTN: UIButton!
+  @IBOutlet weak var dismissBTN: CustomUIButton!
 
   // MARK: - Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
+    dismissBTN.setBackBTN()
   }
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "segueFromMVCtoMRVC",
@@ -27,6 +32,11 @@ class MakerViewController: UIViewController {
        let result = sender as? [UIImage] {
           vcToShow.image = result
     }
+  }
+
+  // MARK: - Action
+  @IBAction func didTapDismissBTN(_ sender: CustomUIButton) {
+    dismiss(animated: true)
   }
 }
 
@@ -42,11 +52,14 @@ extension MakerViewController {
   /// This methods check empty field
   private func checkEmptyField() {
     if nameTF.text == "" {
-
+      let msg = "Veuillez renseigner votre prénom"
+      alertController.simpleMessage(self, msg: msg)
     } else if firstNameTF.text == "" {
-
+      let msg = "Veuillez renseigner votre nom"
+      alertController.simpleMessage(self, msg: msg)
     } else if mailTF.text == "" {
-
+      let msg = "Veuillez renseigner votre mail"
+      alertController.simpleMessage(self, msg: msg)
     } else {
       let qrcode = creatQrcode()
       performSegue(withIdentifier: "segueFromMVCtoMRVC", sender: [qrcode])
@@ -74,19 +87,5 @@ extension MakerViewController {
       }
     }
     return nil
-  }
-}
-
-// MARK: - This extension hides keyboard when tappedAround
-extension UIViewController {
-
-  // MARK: - This extension (two following methodes) hides keyboard when tappedAround
-  func hideKeyboardWhenTappedAround() {
-    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.disKeybd))
-    tap.cancelsTouchesInView = false
-    view.addGestureRecognizer(tap)
-  }
-  @objc func disKeybd() {
-    view.endEditing(true)
   }
 }

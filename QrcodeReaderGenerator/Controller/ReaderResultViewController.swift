@@ -15,10 +15,17 @@ class ReaderResultViewController: UIViewController {
 
   // MARK: - Outlets
   @IBOutlet weak var resultLB: UILabel!
+  @IBOutlet weak var dismissBTN: CustomUIButton!
 
   // MARK: - Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     resultLB.text = result.first
+    dismissBTN.setBackBTN()
+  }
+
+  // MARK: - Action
+  @IBAction func didTapDismissBTN(_ sender: CustomUIButton) {
+    dismiss(animated: true)
   }
 }

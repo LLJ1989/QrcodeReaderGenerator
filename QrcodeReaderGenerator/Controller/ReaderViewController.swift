@@ -15,10 +15,14 @@ class ReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
   var captureSession: AVCaptureSession!
   var previewLayer: AVCaptureVideoPreviewLayer!
 
+  // MARK: - Outlets
+  @IBOutlet weak var dismissBTN: CustomUIButton!
+
   // MARK: - Methods
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCaptureSession()
+    dismissBTN.setBackBTN()
   }
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -39,6 +43,11 @@ class ReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
        let result = sender as? [String] {
         vcToShow.result = result
     }
+  }
+
+  // MARK: - Action
+  @IBAction func didTapDismissBTN(_ sender: CustomUIButton) {
+    dismiss(animated: true)
   }
 }
 
@@ -76,6 +85,7 @@ extension ReaderViewController {
     previewLayer.frame = view.layer.bounds
     previewLayer.videoGravity = .resizeAspectFill
     view.layer.addSublayer(previewLayer)
+    view.addSubview(dismissBTN)
     captureSession.startRunning()
   }
 

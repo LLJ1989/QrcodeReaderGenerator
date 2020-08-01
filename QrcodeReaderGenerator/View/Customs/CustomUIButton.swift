@@ -49,4 +49,12 @@ class CustomUIButton: UIButton {
     self.tintColor = .black
   }
 
+  // MARK: - These following methods manage little button design
+  /// This method sets back button's design
+  func setBackBTN() {
+    self.backgroundColor = nil
+    self.titleLabel?.font = .fontAwesome(ofSize: 24, style: .solid)
+    self.setTitleColor(.black, for: .normal)
+    self.setTitle(.fontAwesomeIcon(name: .arrowLeft), for: .normal)
+  }
 }
