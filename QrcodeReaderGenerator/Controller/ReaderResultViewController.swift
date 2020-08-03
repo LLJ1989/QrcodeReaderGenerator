@@ -26,6 +26,6 @@ class ReaderResultViewController: UIViewController {
 
   // MARK: - Action
   @IBAction func didTapDismissBTN(_ sender: CustomUIButton) {
-    dismiss(animated: true)
+    performSegue(withIdentifier: "unwindFromRRVCtoHVC", sender: self)
   }
 }

@@ -25,10 +25,15 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
 
   // MARK: - Action
+  /// This action manage unwind segue
+  @IBAction func unwindSegueToHVC( _ seg: UIStoryboardSegue) {}
+
+  /// This action manage going to ReaderVC
   @IBAction func didTapSearchBTN(_ sender: CustomUIButton) {
     performSegue(withIdentifier: "segueFromHVCtoRVC", sender: self)
   }
 
+  /// This action manage going to MakerVC
   @IBAction func didTapAddBTN(_ sender: CustomUIButton) {
     performSegue(withIdentifier: "segueFromHVCtoMVC", sender: self)
   }
