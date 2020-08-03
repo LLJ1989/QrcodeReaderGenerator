@@ -9,6 +9,7 @@
 import AVFoundation
 import UIKit
 
+// MARK: - This extension creat a capture session to scan Qr-Code
 extension UIViewController: AVCaptureMetadataOutputObjectsDelegate {
 
   // MARK: - Methods

@@ -61,13 +61,45 @@ extension MakerViewController {
       let msg = "Veuillez renseigner votre mail"
       alertController.simpleMessage(self, msg: msg)
     } else {
-      let qrcode = creatQrcode()
-      performSegue(withIdentifier: "segueFromMVCtoMRVC", sender: [qrcode])
+      qrcodeSheeet()
     }
+  }
+
+  /// This method is an actionSheet asking user if he wants logo inside own QR-Code
+  private func qrcodeSheeet() {
+    let msg = "Souohaitez-vous ajouter un logo au QR-Code?"
+    let sheet = UIAlertController(title: nil, message: msg, preferredStyle: .actionSheet)
+    sheet.addAction(UIAlertAction(title: "Oui", style: .default, handler: { (_) in
+      guard let qrcode = self.creatQrcodeLogo() else {return}
+      self.performSegue(withIdentifier: "segueFromMVCtoMRVC", sender: [qrcode])
+    }))
+    sheet.addAction(UIAlertAction(title: "Non", style: .default, handler: { (_) in
+      guard let qrcode = self.creatQrcode() else {return}
+      self.performSegue(withIdentifier: "segueFromMVCtoMRVC", sender: [qrcode])
+    }))
+    sheet.addAction(UIAlertAction(title: "Annuler", style: .destructive, handler: { (_) in
+      self.dismiss(animated: true)
+    }))
+    present(sheet, animated: true)
+  }
+
+  /// This method crreat QR-Code with logo and send to next VC
+  private func creatQrcodeLogo() -> UIImage? {
+    guard let message = setText(),
+          let qrc = message.qrCodeLogo else { return nil }
+    return qrc
   }
 
   /// This method creat QR-Code and send to next VC
   private func creatQrcode() -> UIImage? {
+    guard let message = setText(),
+          let qrc = message.qrCode else { return nil }
+    let qrcode = UIImage(ciImage: qrc)
+    return qrcode
+  }
+
+  /// This methode return text to includ in QR-Code
+  private func setText() -> String? {
     guard let name = nameTF.text,
           let firstName = firstNameTF.text,
           let mail = mailTF.text else {
@@ -78,14 +110,6 @@ extension MakerViewController {
                   first name => \(firstName)
                   mail => \(mail)
                   """
-    let data = message.data(using: .ascii)
-    if let filter = CIFilter(name: "CIQRCodeGenerator") {
-      filter.setValue(data, forKey: "inputMessage")
-      let transform = CGAffineTransform(scaleX: 3, y: 3)
-      if let output = filter.outputImage?.transformed(by: transform) {
-        return UIImage(ciImage: output)
-      }
-    }
-    return nil
+    return message
   }
 }
